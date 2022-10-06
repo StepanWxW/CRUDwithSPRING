@@ -24,7 +24,7 @@ public class Book {
     @Column (name = "year")
     int year;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "people_id", referencedColumnName = "id")
-    People people;
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    Person person;
 
 }

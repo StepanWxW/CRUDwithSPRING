@@ -22,6 +22,6 @@ public class Person {
     String name;
     @Column (name = "age")
     int age;
-    @OneToMany (mappedBy = "people")
+    @OneToMany (mappedBy = "person")
     List<Book> bookList;
 }

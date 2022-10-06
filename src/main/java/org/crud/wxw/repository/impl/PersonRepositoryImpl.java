@@ -7,9 +7,10 @@ import org.crud.wxw.model.Person;
 import org.crud.wxw.repository.PersonRepository;
 import org.crud.wxw.util.SessionUtil;
 import org.hibernate.Session;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class PersonRepositoryImpl implements PersonRepository {
     SessionUtil sessionUtil = new SessionUtil();
     public Person create(Person person) {
