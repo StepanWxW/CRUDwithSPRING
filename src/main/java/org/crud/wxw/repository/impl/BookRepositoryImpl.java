@@ -7,9 +7,10 @@ import org.crud.wxw.model.Book;
 import org.crud.wxw.repository.BookRepository;
 import org.crud.wxw.util.SessionUtil;
 import org.hibernate.Session;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class BookRepositoryImpl implements BookRepository {
     SessionUtil sessionUtil = new SessionUtil();
     public Book create(Book book) {
