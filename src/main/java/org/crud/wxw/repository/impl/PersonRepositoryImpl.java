@@ -3,6 +3,7 @@ package org.crud.wxw.repository.impl;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import org.crud.wxw.entity.PersonEntity;
 import org.crud.wxw.model.Person;
 import org.crud.wxw.repository.PersonRepository;
 import org.crud.wxw.util.SessionUtil;
@@ -13,7 +14,7 @@ import java.util.List;
 @Component
 public class PersonRepositoryImpl implements PersonRepository {
     SessionUtil sessionUtil = new SessionUtil();
-    public Person create(Person person) {
+    public PersonEntity create(PersonEntity person) {
         Session session = sessionUtil.openTransactionSession();
         session.persist(person);
         session.getTransaction().commit();
@@ -21,25 +22,25 @@ public class PersonRepositoryImpl implements PersonRepository {
         return person;
     }
 
-    public List<Person> getAll() {
-        List<Person> personList;
+    public List<PersonEntity> getAll() {
+        List<PersonEntity> personList;
         Session session = sessionUtil.openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Person> cq = cb.createQuery(Person.class);
-        cq.from(Person.class);
+        CriteriaQuery<PersonEntity> cq = cb.createQuery(PersonEntity.class);
+        cq.from(PersonEntity.class);
         personList = session.createQuery(cq).getResultList();
         session.close();
         return personList;
     }
 
-    public Person getById(Long id) {
+    public PersonEntity getById(Long id) {
         Session session = sessionUtil.openSession();
-        Person person = session.get(Person.class, id);
+        PersonEntity person = session.get(PersonEntity.class, id);
         session.close();
         return person;
     }
 
-    public Person update(Person people) {
+    public PersonEntity update(PersonEntity people) {
         try(Session session = sessionUtil.openTransactionSession()) {
             session.saveOrUpdate(people);
             session.getTransaction().commit();
@@ -51,7 +52,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     public void delete(Long id) {
         try(Session session = sessionUtil.openTransactionSession()) {
-            Person person = session.load(Person.class, id);
+            PersonEntity person = session.load(PersonEntity.class, id);
             session.delete(person);
             session.getTransaction().commit();
         } catch (EntityNotFoundException e) {

@@ -9,6 +9,15 @@
 <p th:text="${book.getName()}">VALUE</p>
 <p th:text="${book.getAuthor()}">VALUE</p>
 <p th:text="${book.getYear()}">VALUE</p>
+<p th:text="${book.getPerson()}">VALUE</p>
+<form th:method="PATCH" th:action="@{/books/add}">
+    <label for="person">Change person:</label>
+    <select th:object="${person}" th:field="*{id}" id="person">
+        <option th:each="person : ${people}" th:value="${person.getId()}"
+                th:text="${person.getName()}"></option>
+    </select>
+    <input type="submit" value="go!" />
+</form>
 <br/>
 <hr/>
 <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
@@ -16,6 +25,5 @@
 </form>
 <br/>
 <a th:href="@{/books/{id}/edit(id=${book.getId()})}">Edit</a>
-</body>
 </body>
 </html>

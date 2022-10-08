@@ -14,8 +14,8 @@
         <property name="current_session_context_class">thread</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <property name="hbm2ddl.auto">update</property>
-        <mapping class="org.crud.wxw.model.Person"/>
-        <mapping class="org.crud.wxw.model.Book"/>
+        <mapping class="org.crud.wxw.entity.PersonEntity"/>
+        <mapping class="org.crud.wxw.entity.BookEntity"/>
 
 
 
