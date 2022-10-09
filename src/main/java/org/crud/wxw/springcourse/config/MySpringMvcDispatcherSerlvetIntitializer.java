@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.util.EnumSet;
 
+
 public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
         @Override
         protected Class<?>[] getRootConfigClasses() {
@@ -29,6 +30,7 @@ public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotation
         @Override
         public void onStartup(ServletContext aServletContext) throws ServletException {
                 super.onStartup(aServletContext);
+                registerCharacterEncodingFilter(aServletContext);
                 registerHiddenFieldFilter(aServletContext);
         }
 
@@ -36,4 +38,15 @@ public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotation
                 aContext.addFilter("hiddenHttpMethodFilter",
                         new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
         }
+        private void registerCharacterEncodingFilter(ServletContext aContext) {
+                EnumSet<DispatcherType> dispatcherType = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
+
+                CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+                characterEncodingFilter.setEncoding("UTF-8");
+                characterEncodingFilter.setForceEncoding(true);
+
+                FilterRegistration.Dynamic characterEncoding = aContext.addFilter("characterEncoding", characterEncodingFilter);
+                characterEncoding.addMappingForUrlPatterns(dispatcherType, true,"/*");
+        }
+
 }
