@@ -12,9 +12,8 @@ import java.util.stream.Collectors;
 @Component
 public class PersonService {
     PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
-    PersonMapper personMapper = new PersonMapper();
     public PersonEntity create(Person person) {
-        PersonEntity personEntity = personMapper.toModelEntity(person);
+        PersonEntity personEntity = PersonMapper.toModelEntity(person);
         personRepository.create(personEntity);
         return personEntity;
     }
@@ -24,18 +23,17 @@ public class PersonService {
     }
 
     public Person getById(Long id) {
-        return personMapper.toModel(personRepository.getById(id));
+        return PersonMapper.toModel(personRepository.getById(id));
     }
     public PersonEntity update(Person person) {
-        return personRepository.update(personMapper.toModelEntity(person));
+        return personRepository.update(PersonMapper.toModelEntity(person));
     }
 
     public void delete(Long id) {
         personRepository.delete(id);
     }
 
-    public PersonService(PersonRepositoryImpl personRepository, PersonMapper personMapper) {
+    public PersonService(PersonRepositoryImpl personRepository) {
         this.personRepository = personRepository;
-        this.personMapper = personMapper;
     }
 }

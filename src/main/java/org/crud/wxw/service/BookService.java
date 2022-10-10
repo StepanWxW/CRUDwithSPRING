@@ -2,13 +2,18 @@ package org.crud.wxw.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.crud.wxw.entity.BookEntity;
+import org.crud.wxw.entity.PersonEntity;
 import org.crud.wxw.mapper.BookMapper;
+import org.crud.wxw.mapper.PersonMapper;
 import org.crud.wxw.model.Book;
+import org.crud.wxw.model.Person;
 import org.crud.wxw.repository.impl.BookRepositoryImpl;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Component
 public class BookService {
@@ -46,4 +51,13 @@ public class BookService {
         this.bookMapper = bookMapper;
     }
 
+    public List<Book> getBooksByPersonId(Long id) {
+        List<BookEntity> bookEntities = bookRepository.getAll().stream().
+                filter((p) -> p.getPersonEntity() != null && Objects.equals(p.getPersonEntity().getId(), id)).toList();
+        return bookEntities.stream().map(BookMapper::toModel).collect(Collectors.toList());
+    }
+
+    public Person getBookOwner(Long id) {
+        return PersonMapper.toModel(bookRepository.getById(id).getPersonEntity());
+    }
 }

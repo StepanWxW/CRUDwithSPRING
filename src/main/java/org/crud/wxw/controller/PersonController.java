@@ -1,7 +1,7 @@
 package org.crud.wxw.controller;
 
 import org.crud.wxw.model.Person;
-import org.crud.wxw.repository.impl.PersonRepositoryImpl;
+import org.crud.wxw.service.BookService;
 import org.crud.wxw.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("people")
 public class PersonController {
     private final PersonService personService;
+    private final BookService bookService;
     @Autowired
-    public PersonController(PersonService personService) {
+    public PersonController(PersonService personService, BookService bookService) {
         this.personService = personService;
+        this.bookService = bookService;
     }
 
     @GetMapping
@@ -26,6 +28,7 @@ public class PersonController {
     @GetMapping("/{id}")
     public String getId(@PathVariable("id") Long id, Model model) {
         model.addAttribute("person", personService.getById(id));
+        model.addAttribute("books", bookService.getBooksByPersonId(id));
         return "person/person";
     }
     @GetMapping("/new")

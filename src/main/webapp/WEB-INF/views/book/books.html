@@ -6,13 +6,15 @@
 </head>
 <body>
 <div th:each="book : ${books}">
-    <a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getName()}">VALUE</a>
-    <a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getAuthor()}">VALUE</a>
-    <a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getYear()}">VALUE</a>
+    <a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getName()}
+        + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}">VALUE</a>
+
 </div>
 <br/>
 <hr/>
 
-<a th:href="@{books/new}" >Create new book!</a>
+<a th:href="@{books/new}" >Создать новую книгу.</a>
+<br>
+<a th:href="@{/}">Вернуться на главную.</a>
 </body>
 </html>

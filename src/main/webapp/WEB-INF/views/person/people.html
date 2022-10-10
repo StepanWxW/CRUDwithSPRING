@@ -7,13 +7,15 @@
 <body>
 
 <div th:each="person : ${people}">
-    <a th:href="@{people/{id}(id=${person.getId()})}" th:text="${person.getName()}">VALUE</a>
-    <a th:href="@{people/{id}(id=${person.getId()})}" th:text="${person.getAge()}">VALUE</a>
+    <a th:href="@{people/{id}(id=${person.getId()})}" th:text="${person.getName()}
+     + ', ' + ${person.getAge()}">VALUE</a>
 
 </div>
 <br/>
 <hr/>
 
-<a th:href="@{people/new}" >Create new person!</a>
+<a th:href="@{people/new}" >Добавить человека</a>
+<br>
+<a th:href="@{/}">Вернуться на главную.</a>
 </body>
 </html>

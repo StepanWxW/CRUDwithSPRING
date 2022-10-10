@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
 @Setter
 @Getter
 @Controller
@@ -32,7 +35,12 @@ public class BookController {
     @GetMapping("/{id}")
     public String getId(@PathVariable("id") Long id, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", bookService.getById(id));
-        model.addAttribute("people", personService.getAll());
+        Person bookOwner = bookService.getBookOwner(id);
+        if(bookOwner != null) {
+            model.addAttribute("owner", person);
+        } else {
+            model.addAttribute("people", personService.getAll());
+        }
         return "book/book";
     }
     @GetMapping("/new")
@@ -59,14 +67,18 @@ public class BookController {
         bookService.delete(id);
         return "redirect:/books";
     }
-    @PatchMapping("/add")
-    public String addPeople(@ModelAttribute ("person") Person person, @ModelAttribute("book") Book book) {
-        System.out.println(person);
-        System.out.println(book);
-        Book book1 = bookService.getById((long) book.getId());
-        book1.setPerson(person);
-        System.out.println(book);
-        bookService.update(book1);
-        return "redirect:/books";
+    @PatchMapping("/{id}/release")
+    public String release(@PathVariable ("id") Long id) {
+        Book book = bookService.getById(id);
+        book.setPerson(new Person());
+        bookService.update(book);
+        return "redirect:/books/" +id;
+    }
+    @PatchMapping("/{id}/assing")
+    public String assing (@PathVariable("id") Long id, @ModelAttribute("person") Person personSelect) {
+        Book book = bookService.getById(id);
+        book.setPerson(personSelect);
+        bookService.update(book);
+        return "redirect:/books/" +id;
     }
 }

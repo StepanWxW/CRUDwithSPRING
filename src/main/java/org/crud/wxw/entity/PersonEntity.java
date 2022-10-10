@@ -19,7 +19,7 @@ public class PersonEntity {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    int id;
+    Long id;
     @Column (name = "name")
     String name;
     @Column (name = "age")
@@ -27,7 +27,7 @@ public class PersonEntity {
     @OneToMany (mappedBy = "personEntity")
     List<BookEntity> bookListEntity;
 
-    public PersonEntity(int id) {
+    public PersonEntity(Long id) {
         this.id = id;
     }
 

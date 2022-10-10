@@ -4,7 +4,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import org.crud.wxw.entity.PersonEntity;
-import org.crud.wxw.model.Person;
 import org.crud.wxw.repository.PersonRepository;
 import org.crud.wxw.util.SessionUtil;
 import org.hibernate.Session;
