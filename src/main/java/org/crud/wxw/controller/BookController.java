@@ -67,9 +67,7 @@ public class BookController {
     }
     @PatchMapping("/{id}/release")
     public String release(@PathVariable ("id") Long id) {
-        Book book = bookService.getById(id);
-        book.setPerson(new Person());
-        bookService.update(book);
+        bookService.release(id);
         return "redirect:/books/" +id;
     }
     @PatchMapping("/{id}/assign")

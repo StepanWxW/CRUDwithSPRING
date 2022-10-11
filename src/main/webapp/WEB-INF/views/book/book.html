@@ -29,7 +29,7 @@
 </div>
 <br/>
 <hr/>
-<form th:method="GET" th:action="@{/books/edit{id}(id=${book.getId()})}">
+<form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
     <input type="submit", value="Редактировать">
 </form>
 <br/>

@@ -59,4 +59,13 @@ public class BookRepositoryImpl implements BookRepository {
             System.out.println("Book whit id: " + id + " is missing.");
         }
     }
+    public void release (Long id) {
+        try(Session session = sessionUtil.openTransactionSession()) {
+            BookEntity book = session.get(BookEntity.class, id);
+            book.setPersonEntity(null);
+            session.getTransaction().commit();
+        } catch (EntityNotFoundException e) {
+            System.out.println("Book is missing.");
+        }
+    }
 }

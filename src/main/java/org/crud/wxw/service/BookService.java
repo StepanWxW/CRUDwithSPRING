@@ -64,4 +64,7 @@ public class BookService {
         }
         return null;
     }
+    public void release(Long id) {
+        bookRepository.release(id);
+    }
 }
