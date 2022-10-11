@@ -58,6 +58,10 @@ public class BookService {
     }
 
     public Person getBookOwner(Long id) {
-        return PersonMapper.toModel(bookRepository.getById(id).getPersonEntity());
+        PersonEntity personEntity = bookRepository.getById(id).getPersonEntity();
+        if (personEntity != null) {
+            return PersonMapper.toModel(bookRepository.getById(id).getPersonEntity());
+        }
+        return null;
     }
 }

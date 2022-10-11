@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @Setter
 @Getter
 @Controller
@@ -37,7 +35,7 @@ public class BookController {
         model.addAttribute("book", bookService.getById(id));
         Person bookOwner = bookService.getBookOwner(id);
         if(bookOwner != null) {
-            model.addAttribute("owner", person);
+            model.addAttribute("owner", bookOwner);
         } else {
             model.addAttribute("people", personService.getAll());
         }
@@ -74,8 +72,8 @@ public class BookController {
         bookService.update(book);
         return "redirect:/books/" +id;
     }
-    @PatchMapping("/{id}/assing")
-    public String assing (@PathVariable("id") Long id, @ModelAttribute("person") Person personSelect) {
+    @PatchMapping("/{id}/assign")
+    public String assign(@PathVariable("id") Long id, @ModelAttribute("person") Person personSelect) {
         Book book = bookService.getById(id);
         book.setPerson(personSelect);
         bookService.update(book);
